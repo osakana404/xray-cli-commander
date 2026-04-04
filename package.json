@@ -1,0 +1,19 @@
+{
+  "name": "xray-cli-commander",
+  "version": "1.0.0",
+  "bin": {
+    "xray-cli": "./index.js"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.6.2"
+  }
+}
