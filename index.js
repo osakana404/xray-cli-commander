@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 import chalk from "chalk";
-import * as fs from "node:fs";
-import path from "node:path";
-import { loadConfig, saveConfig } from "./src/configController.js";
 
-const CONFIG_PATH = path.resolve("legacy", "vless-config", "users.json");
+import { loadConfig, saveConfig } from "./src/configController.js";
 
 const action = process.argv[2];
 
