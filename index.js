@@ -50,33 +50,25 @@ switch (action) {
 
     break;
 
-  case "remove":
+  case "remove": {
+    const config = loadConfig();
     console.log(chalk.bgYellow(`Удаляю пользователя: ${process.argv[3]} ...`));
 
-    try {
-      const data = fs.readFileSync(CONFIG_PATH, "utf-8");
-      const config = JSON.parse(data); // превращаем в объект
-      for (let value of config.users) {
-        if (value === process.argv[3]) {
-          const i = config.users.indexOf(value);
-          config.users.splice(i, 1);
-          const updatedData = JSON.stringify(config, null, 2);
-          fs.writeFileSync(CONFIG_PATH, updatedData);
-          console.log(
-            chalk.bold.bgGreen(`Пользователь ${process.argv[3]} удален!`),
-          );
-          process.exit(1);
-        }
+    for (let value of config.users) {
+      if (value === process.argv[3]) {
+        const i = config.users.indexOf(value);
+        config.users.splice(i, 1);
+        saveConfig(config);
+        console.log(
+          chalk.bold.bgGreen(`Пользователь ${process.argv[3]} удален!`),
+        );
+        process.exit(0);
       }
-      console.log(chalk.bgRed(`Error: Пользователя ${process.argv[3]} нету`));
-    } catch (error) {
-      console.log(
-        chalk.white.bgRed(`Error: Ошибка чтения файла: `, error.message),
-      );
-      process.exit(1);
     }
+    console.log(chalk.bgRed(`Error: Пользователя ${process.argv[3]} нету`));
 
     break;
+  }
 
   default:
     console.log(
