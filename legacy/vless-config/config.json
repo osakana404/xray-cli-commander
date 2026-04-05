@@ -1,0 +1,22 @@
+{
+  "inbounds": [
+    {
+      "port": 443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "3ff0d163-c4b4-4784-ba37-e27549262071",
+            "email": "ivanika@xray-cli",
+            "alterId": 0
+          },
+          {
+            "id": "2a6fa96c-e3a6-47ca-9fc3-11b03e3cbede",
+            "email": "ivanika2@xray-cli",
+            "alterId": 0
+          }
+        ]
+      }
+    }
+  ]
+}
