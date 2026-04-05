@@ -80,6 +80,7 @@ switch (action) {
   case "list": {
     const config = loadConfig();
     const tab = config.inbounds[0].settings.clients;
+    console.log("Список пользователей");
     console.table(tab);
     break;
   }
