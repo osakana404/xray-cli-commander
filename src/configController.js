@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import chalk from "chalk";
 import { randomUUID } from "crypto";
+import { execSync } from "child_process";
 
 const __filename = fileURLToPath(import.meta.url); // железобетонно знает где лежит этот файл
 const __dirname = path.dirname(__filename);
@@ -47,6 +48,17 @@ export function loadConfig() {
 export function saveConfig(config) {
   const updatedData = JSON.stringify(config, null, 2);
   writeFileSync(CONFIG_PATH, updatedData);
+  // linux/systemd restart:
+  try {
+    execSync("systemctl restart xray", { encoding: "utf-8" });
+  } catch (error) {
+    console.log(
+      chalk.yellow(
+        `Предупреждение: не удалось перезапустить сервис (это нормально для Windows)`,
+      ),
+    );
+  }
+
   console.log(chalk.bold.bgGreen(`Успешно записал`));
   return updatedData;
 }
