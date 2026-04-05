@@ -2,6 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import chalk from "chalk";
+import { randomUUID } from "crypto";
 
 const __filename = fileURLToPath(import.meta.url); // железобетонно знает где лежит этот файл
 const __dirname = path.dirname(__filename);
@@ -12,13 +13,21 @@ const CONFIG_PATH = path.resolve(
   "..",
   "legacy",
   "vless-config",
-  "users.json",
+  "config.json",
 );
 
 // читаем и возвращаем объект
 export function loadConfig() {
   const defaultObject = {
-    users: [],
+    inbounds: [
+      {
+        port: 443,
+        protocol: "vless",
+        settings: {
+          clients: [], // Вот сюда мы будем пушить наших пользователей
+        },
+      },
+    ],
   };
 
   if (existsSync(CONFIG_PATH)) {
@@ -40,4 +49,13 @@ export function saveConfig(config) {
   writeFileSync(CONFIG_PATH, updatedData);
   console.log(chalk.bold.bgGreen(`Успешно записал`));
   return updatedData;
+}
+
+export function generateNewUser(name) {
+  const newUser = {
+    id: randomUUID(),
+    email: name,
+    alterId: 0,
+  };
+  return newUser;
 }
